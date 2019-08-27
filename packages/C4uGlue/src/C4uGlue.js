@@ -34,7 +34,7 @@ const glueStore = new Vuex.Store({
   }
 })
 
-let ucid = 1;
+let ucid = 1; 
 
 function checkifChildBelowParentDOM(child, parent)
 {
@@ -47,6 +47,11 @@ function checkifChildBelowParentDOM(child, parent)
          return true;
       } 
    } 
+   if(parent.shadowRoot) {
+      if (checkifChildBelowParentDOM(child, parent.shadowRoot)) {
+         return true;
+      }      
+   }
    return false;
 }
 
