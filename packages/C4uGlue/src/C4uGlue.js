@@ -38,23 +38,25 @@ let ucid = 1;
 
 function checkifChildBelowParentDOM(child, parent)
 {
-   for(var i = 0; i < parent.children.length; i++) {
-      var elem = parent.children[i];
-      if (elem._wrapper && elem._wrapper.$el && elem._wrapper.$el.id == child.id) {
-         return true;
-      }
-      if (checkifChildBelowParentDOM(child, elem)) {
-         return true;
-      } 
-   } 
+   // if there is a shadow-root, the usual children part will not be rendered
    if(parent.shadowRoot) {
       if (checkifChildBelowParentDOM(child, parent.shadowRoot)) {
          return true;
       }      
+   } else {
+      for(var i = 0; i < parent.children.length; i++) {
+        var elem = parent.children[i];
+        if (elem._wrapper && elem._wrapper.$el && elem._wrapper.$el.id == child.id) {
+           return true;
+        }
+        if (checkifChildBelowParentDOM(child, elem)) {
+           return true;
+        } 
+     } 
    }
    return false;
 }
-
+ 
 function checkIfChildBelowParentVue(child, parent)
 {
   if (!child.$root.$el || !parent.$root.$el) {return false;}
@@ -75,6 +77,12 @@ export default {
         }
     },
     methods: {
+          c4uSend(name, value) {
+             glueBus.$emit('c4u-emit-'+name, value);
+          },
+          c4uReceive(name, fnc) {
+            glueBus.$on('c4u-emit-'+name, (v1) => fnc(v1));
+          },
           c4uAddChild(child) {
             //console.log("ENtry received "+child.c4uParentId+" / "+ this.c4uUid+" / "+ child.c4uUid);
             if (this.c4uUid == child.c4uParentId) {

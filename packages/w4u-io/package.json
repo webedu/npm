@@ -1,0 +1,25 @@
+{
+  "name": "w4u-io",
+  "version": "0.0.1",
+  "description": "Vue mixin to handle input and output of values",
+  "main": "./src/W4uIo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web-components",
+    "w4u-io",
+    "webedu",
+    "w4u"
+  ],
+  "author": "Michael Kahle",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "vue": "^2.6.10"
+  }
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git=https://github.com/webedu/npm.git"
+  }
+}
