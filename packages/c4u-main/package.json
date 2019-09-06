@@ -1,6 +1,6 @@
 {
   "name": "c4u-main",
-  "version": "0.2011.0",
+  "version": "0.0.2",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "axios": "^0.19.0",
-    "c4u-glue": "^0.1.1",
+    "c4u-glue": "^0.1.2",
     "core-js": "^2.6.9",
     "es6-promise": "^4.2.8",
     "ucid": "^1.0.0",
@@ -60,6 +60,8 @@
     "> 1%",
     "last 2 versions"
   ],
+  "author": "Michael Kahle",
+  "license": "Apache-2.0",
   "description": "# wc-template",
   "main": "./src/main.js",
   "repository": {

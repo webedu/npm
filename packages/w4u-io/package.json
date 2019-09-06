@@ -1,6 +1,6 @@
 {
   "name": "w4u-io",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Vue mixin to handle input and output of values",
   "main": "./src/W4uIo.js",
   "scripts": {

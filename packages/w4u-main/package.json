@@ -1,6 +1,6 @@
 {
   "name": "w4u-main",
-  "version": "0.2011.0",
+  "version": "0.0.2",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "axios": "^0.19.0",
-    "c4u-glue": "file:../../npm-components/c4u-glue",
+    "c4u-glue": "^0.1.2",
     "core-js": "^2.6.9",
     "es6-promise": "^4.2.8",
     "mathjax": "^3.0.0",
@@ -65,6 +65,8 @@
   ],
   "description": "# wc-template",
   "main": "./src/main.js",
+  "author": "Michael Kahle",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git=https://github.com/webedu/npm.git"
