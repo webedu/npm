@@ -63,7 +63,8 @@
   "author": "Michael Kahle",
   "license": "Apache-2.0",
   "description": "# wc-template",
-  "main": "./src/main.js",
+  "main": "./dist/c4u-main.min.js",
+  "unpkg": "./dist/c4u-main.min.js",
   "repository": {
     "type": "git",
     "url": "git=https://github.com/webedu/npm.git"

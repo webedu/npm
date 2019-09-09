@@ -64,7 +64,8 @@
     "last 2 versions"
   ],
   "description": "# wc-template",
-  "main": "./src/main.js",
+  "main": "./dist/w4u-main.min.js",
+  "unpkg": "./dist/w4u-main.min.js",
   "author": "Michael Kahle",
   "license": "Apache-2.0",
   "repository": {

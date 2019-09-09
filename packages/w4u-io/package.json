@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "Vue mixin to handle input and output of values",
   "main": "./src/W4uIo.js",
+  "unpkg": "./src/W4uIo.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
