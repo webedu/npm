@@ -67,7 +67,7 @@
   "unpkg": "./dist/c4u-main.min.js",
   "repository": {
     "type": "git",
-    "url": "git=https://github.com/webedu/npm.git"
+    "url": "https://github.com/webedu/npm.git"
   },
   "keywords": [
     "web-components",
