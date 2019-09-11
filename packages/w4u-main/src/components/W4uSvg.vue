@@ -6,8 +6,9 @@
 </template>
  
 <style scoped>
-  .w4uSvg { 
-    background: green;
+  svg#w4uSvg { 
+    width: 100%;
+    height: 100%;
   }
 </style>
 

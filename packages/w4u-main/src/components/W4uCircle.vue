@@ -4,11 +4,11 @@
   <slot></slot>
   </span>
 </template>
-
+ 
 <style scoped>
   .w4uCircle2 {
     background: green;
-  } 
+  }
 </style>
 
 <script>
