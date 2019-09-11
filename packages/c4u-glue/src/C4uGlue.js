@@ -55,7 +55,7 @@ function checkifChildBelowParentDOM(child, parent)
    }
    return false;
 }
- 
+
 function checkifElementVisibleBelowDocumentRoot(elem) 
 {
   var root = window.document;
@@ -110,13 +110,15 @@ export default {
                 }
                 // add new element
                 uniqueElements[child.c4uUid] = child;
-                child.c4uParentReconnected(this);
-                this.c4uChildReconnected(child);
+
                 var newChildren = new Array();
                 for (var items in uniqueElements){
                   newChildren.push( uniqueElements[items] );
                 }
-                this.c4uChildren[childTag] = newChildren;
+                child.c4uParentReconnected(this);
+                this.c4uChildReconnected(child);
+                Vue.set(this.c4uChildren, childTag, newChildren);
+
             }
           }, 
           c4uRecheckChild(child) {
@@ -146,21 +148,24 @@ export default {
                 }
                 // add child to list
                 uniqueElements[child.c4uUid] = child;
-                child.c4uParentReconnected(this); 
-                this.c4uChildReconnected(child);                              
+     
                 var newChildren = new Array();
                 for (var items in uniqueElements){
                   newChildren.push( uniqueElements[items] );
                 }
-                this.c4uChildren[childTag] = newChildren;
+                Vue.set(this.c4uChildren, childTag, newChildren);
+                child.c4uParentReconnected(this); //
+                this.c4uChildReconnected(child);  //  
+                //
+
              } else {
                 // already removed from list - so only reset child if necessary.  
                 if(child.c4uParentId == this.c4uUid) {
                   child.c4uParent = null;
                   child.c4uParentId = -1;
+                 child.c4uParentDisconnected(this);                          
+                 this.c4uChildDisconnected(child);    
                 }
-                child.c4uParentDisconnected(this);                          
-                this.c4uChildDisconnected(child);
              }
           },
     },
@@ -183,8 +188,11 @@ export default {
          }
     }, 
     mounted() {
-         this.$root.$el.id = 'c4uid-' + this.c4uUid;
          this.c4uTag = this.$root.$options.customElement.localName; 
+
+         this.$root.$el.id = this.c4uTag + '-uid-' + this.c4uUid;
+         //this.$root.$el.id = 'c4uid-' + this.c4uUid;
+
          // receive/handle requests from child as parent 
          glueBus.$on('c4u-check-child-'+this.c4uTag, (v1) => this.c4uRecheckChild(v1));
          this.$nextTick( function () { 
