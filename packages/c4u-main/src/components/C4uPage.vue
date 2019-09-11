@@ -62,22 +62,11 @@
           }
        },
     },
-    created() {
-         console.log("***** Slot-2nd-created " + " #" + this.c4uUid); 
-    },
-    mounted() {
-         console.log("***** Slot-2nd-mounted " + " #" + this.c4uUid);
-    },
     updated() {
-         console.log("***** Slot-2nd-updated " + " #" + this.c4uUid);
          if (this.c4uParent && !this.c4uParent.c4uCurrentPage) {
             this.c4uParent.c4uCurrentPage = this;
             this.pageVisible = true; 
          } 
     },
-    beforeDestroy() {
-         console.log("***** Slot-2nd-destroyed " + " #" + this.c4uUid);
-    },
-
   }
 </script>

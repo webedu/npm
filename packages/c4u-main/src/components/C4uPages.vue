@@ -26,7 +26,6 @@
            return {
             c4uParentTag: "c4u-also-to-be-defined",  // no parent tag
             c4uCurrentPage: null,
-            c4uAllPages: [], 
             }
         },
     mixins: [C4uGlue], 
@@ -87,24 +86,16 @@
           this.counter += 1;
        },
     },
-//    inject: {getIt2: {default() { "initial it"}}},
-    created() {
-         console.log("***** Elem-1st-created #" + this.c4uUid);
+    computed: {
+      c4uAllPages: function() {
+         return this.c4uChildren['c4u-page'];
+      }  
     },
     mounted() {
-         console.log("***** Elem-1st-mounted #" + this.c4uUid);
          var swipeElement = document.getElementById('mktodo');
          activeRegion.bind(swipeElement, 'swipe', function() {
             alert("swiped");
          }); 
     },
-    updated() {
-         console.log("***** Elem-1st-updated #" + this.c4uUid);
-         this.c4uAllPages = this.c4uChildren['c4u-page'];
-    },
-    beforeDestroy() {
-         console.log("***** Elem-1st-destroyed #" + this.c4uUid);
-    },
-
   }
 </script>

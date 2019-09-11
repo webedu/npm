@@ -11,7 +11,6 @@
 </style>
 
 <script>
-//  import C4uGlue from "./C4uGlue2.js"; 
   import C4uGlue from "c4u-glue";
  
   export default {
@@ -31,19 +30,5 @@
           }
        },
     },
-//    inject: {getIt2: {default() { "initial it"}}},
-    created() {
-         console.log("***** Slot-2nd-created " + this.msg + " #" + this.c4uUid);
-    },
-    mounted() {
-         console.log("***** Slot-2nd-mounted " + this.msg + " #" + this.c4uUid);
-    },
-    updated() {
-         console.log("***** Slot-2nd-updated " + this.msg + " #" + this.c4uUid);
-    },
-    beforeDestroy() {
-         console.log("***** Slot-2nd-destroyed " + this.msg + " #" + this.c4uUid);
-    },
-
   }
 </script>

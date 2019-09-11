@@ -36,18 +36,8 @@
          }
        } 
     },
-    created() {
-         console.log("***** Slot-2nd-created " + " #" + this.c4uUid);
-    },
-    mounted() {
-         console.log("***** Slot-2nd-mounted " + " #" + this.c4uUid);
-    },
     updated() {
-         console.log("***** Slot-2nd-updated " + " #" + this.c4uUid);
          this.updateDisableStatus();
-    },
-    beforeDestroy() {
-         console.log("***** Slot-2nd-destroyed " + this.msg + " #" + this.c4uUid);
     },
 
   }

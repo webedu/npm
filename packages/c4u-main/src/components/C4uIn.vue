@@ -25,7 +25,6 @@
           // this.value = value;  // no direct change on own props recommended
           if(value != this.c4uOldValue) {
              this.c4uOldValue = value;
-             //console.log("c4uIn [#"+this.c4uUid+"] receives new value A: " + value);
              // this.$emit('input', value); would only be needed for v-model bind ... 
              var details = {'name': this.name, 'value': value, 'time': 0.1}
              var event = new CustomEvent('c4uIn-changed-'+this.name, {"bubbles":true, "composed":true, "detail": details});
@@ -34,7 +33,6 @@
        }
     },
     mounted() {
-         //console.log("***** Slot-2nd-mounted " + " #" + this.c4uUid);
          this.changeInValue(this.value); 
     },
   }

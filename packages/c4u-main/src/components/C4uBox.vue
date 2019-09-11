@@ -1,5 +1,5 @@
 <template class="self">
-  <span class='c4uBox'> 
+  <span class='c4uBox'>
    <span v-html="c4uStyle"></span>
   <span class='c4uBox2'>
    <slot></slot> 
