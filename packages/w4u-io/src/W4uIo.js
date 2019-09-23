@@ -19,6 +19,22 @@ export default {
          }
        }
      },
+     stopw4uIn() {   
+       for(var inpName in this.w4uInputs) {
+         if(this.w4uInputs.hasOwnProperty(inpName)) {
+            var inpData = this.w4uInputs[inpName];
+            var name = this.name + '-' + inpName;
+            this.$el.removeEventListener('c4uIn-changed-'+name, (event) => this.w4uInChanged(event));
+         }
+       }
+     },
+     c4uParentDisconnected(parent) {
+       this.stopw4uIn();
+     }, 
+     c4uParentReconnected(parent) {
+       this.stopw4uIn();
+       this.initw4uIn();
+     },  
      w4uInChanged(event) {
        event.stopPropagation();
        var name = event.detail.name;
