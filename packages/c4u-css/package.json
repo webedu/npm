@@ -1,0 +1,26 @@
+{
+  "name": "c4u-css",
+  "version": "0.0.1",
+  "description": "Vue mixin to handle reuse of global css links inside shadow dom",
+  "main": "./src/C4uCss.js",
+  "unpkg": "./src/C4uCss.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web-components",
+    "c4u-css",
+    "components4you",
+    "c4u"
+  ],
+  "author": "Michael Kahle",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "vue": "^2.6.10"
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webedu/npm.git"
+  }
+}
