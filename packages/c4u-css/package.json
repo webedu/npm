@@ -1,6 +1,6 @@
 {
   "name": "c4u-css",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Vue mixin to handle reuse of global css links inside shadow dom",
   "main": "./src/C4uCss.js",
   "unpkg": "./src/C4uCss.js",
