@@ -20,7 +20,6 @@ const glueStore = new Vuex.Store({
   },
   mutations: {
     c4uAddCurrentUid(state, elem) {
-       // console.log(" Add state "+elem.c4uTag+" / "+ elem.c4uUid);
        if(!(elem.c4uTag in state.c4uCurrentIds)) {
           state.c4uCurrentIds[elem.c4uTag] = [];
        }
@@ -56,7 +55,13 @@ function checkifChildBelowParentDOM(child, parent)
    }
    return false;
 }
- 
+
+function checkifElementVisibleBelowDocumentRoot(elem) 
+{
+  var root = window.document;
+  return checkifChildBelowParentDOM(elem, root);
+}
+
 function checkIfChildBelowParentVue(child, parent)
 {
   if (!child.$root.$el || !parent.$root.$el) {return false;}
@@ -83,10 +88,12 @@ export default {
           c4uReceive(name, fnc) {
             glueBus.$on('c4u-emit-'+name, (v1) => fnc(v1));
           },
-          c4uAddChild(child) {
-            //console.log("ENtry received "+child.c4uParentId+" / "+ this.c4uUid+" / "+ child.c4uUid);
+          c4uParentDisconnected(parent) {}, // can be overwritten by child
+          c4uParentReconnected(parent) {},  // can be overwritten by child
+          c4uChildDisconnected(child) {},   // can be overwritten by parent
+          c4uChildReconnected(child) {},    // can be overwritten by parent
+          c4uAddChild(child) { 
             if (this.c4uUid == child.c4uParentId) {
-                //console.log(" ENtry accepted "+child.c4uParentId+" / "+ this.c4uUid+" / "+ child.c4uUid);
                 child.c4uParent = this;     // maybe get changed later (if mounted)
                 child.c4uAncestor = this;   // this is final here           
                 var childTag = child.c4uTag;
@@ -96,17 +103,28 @@ export default {
                     uniqueElements[elem.c4uUid] = elem;
                   })
                 }
+                // check if old element will be overwritten by new one
+                if(uniqueElements[child.c4uUid]) {
+                   uniqueElements[child.c4uUid].c4uParentDisconnected(this);  
+                   this.c4uChildDisconnected(uniqueElements[child.c4uUid]);
+                }
+                // add new element
                 uniqueElements[child.c4uUid] = child;
+
                 var newChildren = new Array();
                 for (var items in uniqueElements){
                   newChildren.push( uniqueElements[items] );
                 }
-                this.c4uChildren[childTag] = newChildren;
+                child.c4uParentReconnected(this);
+                this.c4uChildReconnected(child);
+                Vue.set(this.c4uChildren, childTag, newChildren);
+
             }
           }, 
           c4uRecheckChild(child) {
              var childTag = child.c4uTag;
              var isInside = checkIfChildBelowParentVue(child, this);
+             var isVisible = checkifElementVisibleBelowDocumentRoot(this); 
              // remove from array
              if(childTag in this.c4uChildren) {
                this.c4uChildren[childTag] = this.c4uChildren[childTag].filter(
@@ -114,29 +132,40 @@ export default {
                );
              }
              if (isInside) {
-                //console.log("Child inside "+ this.c4uUid+" / "+ child.c4uUid);
                 child.c4uParent = this;
                 child.c4uParentId = this.c4uUid;
-                // add child to list
+                // unify list
                 var uniqueElements = new Array();
                 if(childTag in this.c4uChildren) {
                   this.c4uChildren[childTag].forEach(elem => {
                     uniqueElements[elem.c4uUid] = elem;
                   })
                 }
+                // check if old element will be overwritten by new one
+                if(uniqueElements[child.c4uUid]) {
+                   uniqueElements[child.c4uUid].c4uParentDisconnected(this);   
+                   this.c4uChildDisconnected(uniqueElements[child.c4uUid]);   
+                }
+                // add child to list
                 uniqueElements[child.c4uUid] = child;
+     
                 var newChildren = new Array();
                 for (var items in uniqueElements){
                   newChildren.push( uniqueElements[items] );
                 }
-                this.c4uChildren[childTag] = newChildren;
+                Vue.set(this.c4uChildren, childTag, newChildren);
+                child.c4uParentReconnected(this); //
+                this.c4uChildReconnected(child);  //  
+                //
+
              } else {
-                // already removed from list - so only reset child if necassary.  
-                //console.log("Child outside "+ this.c4uUid+" / "+ child.c4uUid);
+                // already removed from list - so only reset child if necessary.  
                 if(child.c4uParentId == this.c4uUid) {
                   child.c4uParent = null;
                   child.c4uParentId = -1;
-                } 
+                 child.c4uParentDisconnected(this);                          
+                 this.c4uChildDisconnected(child);    
+                }
              }
           },
     },
@@ -159,8 +188,11 @@ export default {
          }
     }, 
     mounted() {
-         this.$root.$el.id = 'c4uid-' + this.c4uUid;
          this.c4uTag = this.$root.$options.customElement.localName; 
+
+         this.$root.$el.id = this.c4uTag + '-uid-' + this.c4uUid;
+         //this.$root.$el.id = 'c4uid-' + this.c4uUid;
+
          // receive/handle requests from child as parent 
          glueBus.$on('c4u-check-child-'+this.c4uTag, (v1) => this.c4uRecheckChild(v1));
          this.$nextTick( function () { 

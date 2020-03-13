@@ -1,17 +1,17 @@
 {
-  "name": "w4u-io",
-  "version": "0.0.4",
-  "description": "Vue mixin to handle input and output of values",
-  "main": "./src/W4uIo.js",
-  "unpkg": "./src/W4uIo.js",
+  "name": "c4u-css",
+  "version": "0.0.2",
+  "description": "Vue mixin to handle reuse of global css links inside shadow dom",
+  "main": "./src/C4uCss.js",
+  "unpkg": "./src/C4uCss.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "web-components",
-    "w4u-io",
-    "webedu",
-    "w4u"
+    "c4u-css",
+    "components4you",
+    "c4u"
   ],
   "author": "Michael Kahle",
   "license": "Apache-2.0",
